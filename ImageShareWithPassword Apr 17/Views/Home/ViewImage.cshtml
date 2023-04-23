@@ -1,0 +1,34 @@
+﻿@using ImageSharing_Data
+@model ViewImageViewModel
+
+<div class="row">
+    <div class="col-md-6 offset-md-3 bg-light p-4 rounded shadow">
+        @if (ViewBag.Message != null)
+        {
+            <div class="row">
+                <div class="col=md=6">
+                    <h3 class="alert-danger">Invalid Passcode</h3>
+                </div>
+            </div>
+        }
+        @if(!Model.hasPermissionToView)
+        {
+            <h4>Please enter the password for this image:</h4>
+            <form method="post">
+                <input type="hidden" name="id" value="@Model.id" />
+                <input type="text" class="form-control" placeholder="Password" name="password" />
+                <br />
+                <button class="btn btn-primary w-100">Submit</button>
+                <input name="__RequestVerificationToken" type="hidden" value="" />
+            </form>
+        }
+        else
+        {
+            <div class="row">
+                <img src="/Uploads/@Model.image.FileName" />
+                <h4>Views: @Model.image.Views</h4>
+            </div>
+        }
+    </div>
+</div>
+
